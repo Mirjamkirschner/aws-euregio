@@ -99,11 +99,33 @@ function writeTemperatureLayer(jsondata) {
     }).addTo(themaLayer.temperature);
 }
 
+function writeWindLayer(jsondata) {
+    L.geoJSON(jsondata, {
+        filter: function (feature) {
+            if (feature.properties.WG > 0 && feature.properties.WG < 500) {
+                return true;
+            }
+        },
+        pointToLayer: function (feature, latlng) {
+            let windKmh = feature.properties.WG * 3.6;
+            let color = getColor(windKmh, COLORS.windVelocity);
+            console.log("Color: ", color);
+            return L.marker(latlng, {
+                icon: L.divIcon({
+                    className: "aws-div-icon", //css-Klasse vergeben, um danach stylen zu können
+                    html: `<span style="background-color: ${color}">${windKmh.toFixed(1)}</span>`,
+                })
+            });
+        },
+    }).addTo(themaLayer.windVelocity);
+}
+
 // Vienna Sightseeing Haltestellen
 async function loadStations(url) {
     let response = await fetch(url);
     let jsondata = await response.json();
     writeStationLayer(jsondata);
     writeTemperatureLayer(jsondata);
+    writeWindLayer(jsondata);
 }
 loadStations("https://static.avalanche.report/weather_stations/stations.geojson");
