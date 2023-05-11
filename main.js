@@ -8,7 +8,7 @@ let ibk = {
 
 // Karte initialisieren
 let map = L.map("map", {
-    fullscreenControl: true
+    fullscreenControl: true,
 }).setView([ibk.lat, ibk.lng], 11);
 
 // thematische Layer
@@ -20,7 +20,8 @@ let themaLayer = {
 let layerControl = L.control.layers({
     "Relief avalanche.report": L.tileLayer(
         "https://static.avalanche.report/tms/{z}/{x}/{y}.webp", {
-        attribution: `© <a href="https://lawinen.report">CC BY avalanche.report</a>`
+        attribution: `© <a href="https://lawinen.report">CC BY avalanche.report</a>`,
+        maxZoom: 12,
     }).addTo(map),
     "Openstreetmap": L.tileLayer.provider("OpenStreetMap.Mapnik"),
     "Esri WorldTopoMap": L.tileLayer.provider("Esri.WorldTopoMap"),
@@ -56,7 +57,7 @@ async function showStations(url) {
             <ul>
                 <li>Lufttemperatur in °C: ${prop.LT || "keine Angabe"}</li>
                 <li>Relative Feuchte in %: ${prop.RH || "keine Angabe"}</li>
-                <li>Windgeschwindigkeit in km/h: ${prop.WG || "keine Angabe"} </li>
+                <li>Windgeschwindigkeit in km/h: ${prop.WG ?(prop.WG * 3.6).toFixed(1): "keine Angabe"} </li>
                 <li>Schneehöhe in cm: ${prop.HS || "keine Angabe"}</li>
             </ul>
             `);
