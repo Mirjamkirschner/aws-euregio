@@ -51,7 +51,8 @@ async function showStations(url) {
             });
         },
         onEachFeature: function (feature, layer) {
-            let prop = feature.properties; 
+            let prop = feature.properties;
+            let pointInTime = new Date (prop.date);
             layer.bindPopup(`
             <h4>${prop.name}, ${feature.geometry.coordinates[2]}m</h4>
             <ul>
@@ -60,6 +61,7 @@ async function showStations(url) {
                 <li>Windgeschwindigkeit in km/h: ${prop.WG ?(prop.WG * 3.6).toFixed(1): "keine Angabe"} </li>
                 <li>Schneehöhe in cm: ${prop.HS || "keine Angabe"}</li>
             </ul>
+            <span>${pointInTime.toLocaleString()}</span>;
             `);
         }
     }).addTo(themaLayer.stations);
