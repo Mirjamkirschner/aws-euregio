@@ -50,3 +50,15 @@ footer {
 footer nav {
     display: inline-block;
 }
+
+.aws-div-icon span {
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 0.3em;
+    border: 1px solid silver;
+    text-shadow: 
+        -1px -1px 0 white,
+        -1px 1px 0 white,
+        1px -1px 0 white,
+        1px 1px 0 white;
+}
