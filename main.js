@@ -39,6 +39,16 @@ L.control.scale({
     imperial: false,
 }).addTo(map);
 
+//Funktion um die Farben zu bekommen: ramp für colorramp
+function getColor(value, ramp) {
+    for (let rule of ramp) {
+        if (value >= rule.min && value < rule.max) {
+            return rule.color;
+        }
+    }
+}
+console.log(getColor(-40, COLORS.temperature));
+
 function writeStationLayer(jsondata) {
     //Wetterstationen mit Icons und Popups implementieren
     L.geoJSON(jsondata, {
@@ -70,7 +80,7 @@ function writeStationLayer(jsondata) {
 
 function writeTemperatureLayer(jsondata) {
     L.geoJSON(jsondata, {
-        filter: function(feature) {
+        filter: function (feature) {
             if (feature.properties.LT > -50 && feature.properties.LT < 50) {
                 return true;
             }
