@@ -15,6 +15,7 @@ let map = L.map("map", {
 let themaLayer = {
     stations: L.featureGroup(),
     temperature: L.featureGroup(),
+    windVelocity: L.featureGroup(),
 }
 
 // Hintergrundlayer
@@ -29,7 +30,8 @@ let layerControl = L.control.layers({
     "Esri WorldImagery": L.tileLayer.provider("Esri.WorldImagery")
 }, {
     "Wetterstationen": themaLayer.stations,
-    "Temperatur": themaLayer.temperature.addTo(map),
+    "Temperatur": themaLayer.temperature,
+    "Windgeschwindigkeit": themaLayer.windVelocity.addTo(map),
 }).addTo(map);
 
 layerControl.expand();
@@ -47,7 +49,6 @@ function getColor(value, ramp) {
         }
     }
 }
-console.log(getColor(-40, COLORS.temperature));
 
 function writeStationLayer(jsondata) {
     //Wetterstationen mit Icons und Popups implementieren
@@ -86,10 +87,12 @@ function writeTemperatureLayer(jsondata) {
             }
         },
         pointToLayer: function (feature, latlng) {
+            let color = getColor(feature.properties.LT, COLORS.temperature);
+            console.log("Color: ", color);
             return L.marker(latlng, {
                 icon: L.divIcon({
                     className: "aws-div-icon", //css-Klasse vergeben, um danach stylen zu können
-                    html: `<span>${feature.properties.LT.toFixed(1)}</span>`,
+                    html: `<span style="background-color: ${color}">${feature.properties.LT.toFixed(1)}</span>`,
                 })
             });
         },
