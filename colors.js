@@ -102,5 +102,54 @@ const COLORS = {
             max: 500,
             color: "#ff3232",
         }
+    ],
+    schneehöhe: [
+        {
+            min: 1,
+            max: 10,
+            color: "#ffffb2",
+        },
+        {
+            min: 10,
+            max: 25,
+            color: "#b0ffbc",
+        },
+        {
+            min: 25,
+            max: 50,
+            color: "#8cffff",
+        },
+        {
+            min: 50,
+            max: 100,
+            color: "#19cdff",
+        },
+        {
+            min: 25,
+            max: 10,
+            color: "#ffffb2",
+        },
+        {
+            min: 100,
+            max: 200,
+            color: "#1982ff",
+        },
+        {
+            min: 200,
+            max: 300,
+            color: "#0f5abe",
+        },
+        {
+            min: 300,
+            max: 400,
+            color: "#784bff",
+        },
+        {
+            min: 400,
+            max: 4000,
+            color: "#cd0feb",
+        },
     ]
 }
+
+//Farben von https://lawinen.report/weather/map/wind -> lawinen report -> weather -> rechtsklick auf die Farben -> untersuchen
