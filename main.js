@@ -32,7 +32,7 @@ let layerControl = L.control.layers({
 }, {
     "Wetterstationen": themaLayer.stations,
     "Temperatur": themaLayer.temperature,
-    "Windgeschwindigkeit": themaLayer.windVelocity.addTo(map),
+    "Windgeschwindigkeit": themaLayer.windVelocity,
     "Schneehöhe": themaLayer.schneehöhe.addTo(map),
 }).addTo(map);
 
@@ -152,3 +152,14 @@ async function loadStations(url) {
     writeSchneehöheLayer(jsondata);
 }
 loadStations("https://static.avalanche.report/weather_stations/stations.geojson");
+
+L.control.rainviewer({ 
+    position: 'bottomleft',
+    nextButtonText: '>',
+    playStopButtonText: 'Play/Stop',
+    prevButtonText: '<',
+    positionSliderLabelText: "Hour:",
+    opacitySliderLabelText: "Opacity:",
+    animationInterval: 500,
+    opacity: 0.5
+}).addTo(map);
